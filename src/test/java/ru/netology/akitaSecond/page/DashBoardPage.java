@@ -2,15 +2,28 @@ package ru.netology.akitaSecond.page;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.support.FindBy;
+import ru.alfabank.alfatest.cucumber.annotations.Name;
+import ru.alfabank.alfatest.cucumber.api.AkitaPage;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.*;
 
-public class DashBoardPage {
-    private SelenideElement heading = $("[data-test-id=dashboard");
-    private SelenideElement buttonCardOne = $$("[data-test-id=action-deposit").first();
-    private SelenideElement buttonCardTwo = $$("[data-test-id=action-deposit").last();
+public class DashBoardPage extends AkitaPage {
+
+    @FindBy(css = "[data-test-id=dashboard")
+    @Name("Заголовок")
+    private SelenideElement heading;
+
+    @Name("Пополнить карта 1")
+    private SelenideElement buttonCardOne = $$("[data-test-id=action]-deposit").first();
+
+    @Name("Пополнить карта 2")
+    private SelenideElement buttonCardTwo = $$("[data-test-id=action]-deposit").last();
+
+    @Name("Баланс карта 1")
     private SelenideElement balanceCardOne = $$("li").first().$("div");
+
+    @Name("Баланс карта 2")
     private SelenideElement balanceCardTwo = $$("li").last().$("div");
 
 
@@ -21,13 +34,13 @@ public class DashBoardPage {
     public CreditCardPage cardOnePage() {
         buttonCardOne.click();
         CreditCardPage cardOne = new CreditCardPage();
-        return cardOne;
+        return page(CreditCardPage.class);
     }
 
     public CreditCardPage cardTwoPage() {
         buttonCardTwo.click();
         CreditCardPage cardTwo = new CreditCardPage();
-        return cardTwo;
+        return page(CreditCardPage.class);
     }
 
     public String getTextCardOne() {

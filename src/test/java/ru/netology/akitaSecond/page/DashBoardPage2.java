@@ -2,17 +2,34 @@ package ru.netology.akitaSecond.page;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.support.FindBy;
+import ru.alfabank.alfatest.cucumber.annotations.Name;
+import ru.alfabank.alfatest.cucumber.api.AkitaPage;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.*;
 
-public class DashBoardPage2 {
-    private SelenideElement heading = $("[data-test-id=dashboard");
-    private SelenideElement buttonCardOne = $$("[data-test-id=action-deposit").first();
-    private SelenideElement buttonCardTwo = $$("[data-test-id=action-deposit").last();
+public class DashBoardPage2 extends AkitaPage {
+
+    @FindBy(css = "[data-test-id=dashboard")
+    @Name("Заголовок")
+    private SelenideElement heading;
+
+
+    @Name("Пополнить карта 1")
+    private SelenideElement buttonCardOne = $$("[data-test-id=action]-deposit").first();
+
+    @Name("Пополнить карта 2")
+    private SelenideElement buttonCardTwo = $$("[data-test-id=action]-deposit").last();
+
+    @Name("Баланс карта 1")
     private SelenideElement balanceCardOne = $$("li").first().$("div");
+
+    @Name("Баланс карта 2")
     private SelenideElement balanceCardTwo = $$("li").last().$("div");
-    private SelenideElement error = $("[data-test-id=error-notification");
+
+    @FindBy(css = "[data-test-id=error-notification]")
+    @Name("Ошибка")
+    private SelenideElement error;
 
 
     public DashBoardPage2() {
@@ -22,13 +39,13 @@ public class DashBoardPage2 {
     public CreditCardPage2 cardOnePage() {
         buttonCardOne.click();
         CreditCardPage2 cardOne = new CreditCardPage2();
-        return cardOne;
+        return page(CreditCardPage2.class);
     }
 
     public CreditCardPage2 cardTwoPage() {
         buttonCardTwo.click();
         CreditCardPage2 cardTwo = new CreditCardPage2();
-        return cardTwo;
+        return page(CreditCardPage2.class);
     }
 
 
